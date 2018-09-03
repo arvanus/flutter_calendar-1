@@ -18,7 +18,8 @@ dependencies:
   timezone:
      # Need to use git here since there is a bug in the main repository.
      git:
-       url: "https://github.com/pinkfish/timezone.git"
+       #url: "https://github.com/pinkfish/timezone.git"
+       url: "https://github.com/paresy/timezone.git"
 
 dev_dependencies:
   test: any
