@@ -34,11 +34,11 @@ class RenderSliverCenterList extends RenderSliverMultiBoxAdaptor {
   /// the main axis.
   ///
   /// The [childManager] argument must not be null.
-  RenderSliverCenterList(
-      {@required RenderSliverBoxChildManager childManager,
-      this.startIndex = 0,
-      @required this.sharedState})
-      : super(childManager: childManager);
+  RenderSliverCenterList({
+    @required RenderSliverBoxChildManager childManager,
+    @required this.sharedState,
+    this.startIndex = 0,
+  }) : super(childManager: childManager);
 
   final int startIndex;
   final SharedCalendarState sharedState;
@@ -237,9 +237,13 @@ class RenderSliverCenterList extends RenderSliverMultiBoxAdaptor {
       // returns true if we advanced, false if we have no more children
       // This function is used in two different places below, to avoid code duplication.
       assert(child != null);
-      if (child == trailingChildWithLayout) inLayoutRange = false;
+      if (child == trailingChildWithLayout) {
+        inLayoutRange = false;
+      }
       child = childAfter(child);
-      if (child == null) inLayoutRange = false;
+      if (child == null) {
+        inLayoutRange = false;
+      }
       index += 1;
       if (!inLayoutRange) {
         if (child == null || indexOf(child) != index) {
@@ -358,8 +362,9 @@ class RenderSliverCenterList extends RenderSliverMultiBoxAdaptor {
 
     SliverMultiBoxAdaptorParentData childParentData = firstChild.parentData;
     geometry = new SliverGeometry(
-      scrollOffsetCorrection:
-          forceScrollUpdate ? childParentData.layoutOffset - scrollOffset : null,
+      scrollOffsetCorrection: forceScrollUpdate
+          ? childParentData.layoutOffset - scrollOffset
+          : null,
       scrollExtent: estimatedMaxScrollOffset,
       paintExtent: paintExtent,
       maxPaintExtent: estimatedMaxScrollOffset,
@@ -387,11 +392,11 @@ class RenderSliverCenterList extends RenderSliverMultiBoxAdaptor {
 class SliverListCenter extends SliverMultiBoxAdaptorWidget {
   /// Creates a sliver that places box children in a linear array.
   const SliverListCenter({
-    Key key,
-    this.startIndex = 0,
     @required this.calendarKey,
     @required SliverChildDelegate delegate,
     @required this.controller,
+    Key key,
+    this.startIndex = 0,
   }) : super(key: key, delegate: delegate);
 
   @override
@@ -420,6 +425,7 @@ class SliverListCenter extends SliverMultiBoxAdaptorWidget {
   ///
   /// The default implementation defers to [delegate] via its
   /// [SliverChildDelegate.estimateMaxScrollOffset] method.
+  @override
   double estimateMaxScrollOffset(
     SliverConstraints constraints,
     int firstIndex,
